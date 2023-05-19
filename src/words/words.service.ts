@@ -34,7 +34,9 @@ export class WordService {
         if (params.category) {
             query.categories = { $in: [params.category] }
         }
-        console.log(query);
+        if (params.wordType) {
+            query.wordType = { $eq: params.wordType }
+        }
         return query;
     }
 

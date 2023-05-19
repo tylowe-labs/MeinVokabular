@@ -73,6 +73,7 @@ export interface PaginatedWord {
 export interface QueryParams {
     difficulty?: WordDifficulty;
     category?: WordCategory;
+    wordType?: WordType;
     page?: number;
     limit?: number;
 }
