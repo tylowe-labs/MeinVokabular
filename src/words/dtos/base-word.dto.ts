@@ -1,4 +1,4 @@
-import { IsArray, IsIn, IsNotEmpty, IsObject } from "class-validator";
+import { IsArray, IsIn, IsNotEmpty, IsObject, ValidationArguments } from "class-validator";
 import { WordCategory, WordDifficulty, WordType } from "../schemas/word.schema";
 import { IsValidWordData } from "./validators/word-data.validator";
 
@@ -19,9 +19,11 @@ export class BaseWordDto {
     @IsNotEmpty()
     audio: string;
 
-    @IsObject()
     @IsValidWordData('wordType', {
-        message: 'Ensure the wordData object structure matches the wordType expected',
+        message: (args: ValidationArguments) => {
+            const wordType = args.object['wordType'];
+            return `Ensure that wordData object field is present and matches the data expected for ${wordType} wordType.`
+        }
     })
     wordData: object;
 

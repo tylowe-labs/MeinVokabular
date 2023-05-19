@@ -10,7 +10,6 @@ export class WordService {
         @InjectModel(Word.name) private wordModel: Model<Word>){}
 
     async query(params: QueryParams): Promise<PaginatedWord> {
-        console.log(params)
         const page = params.page;
         const limit = params.limit;
         const skip = (page - 1) * limit;
