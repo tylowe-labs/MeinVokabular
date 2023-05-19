@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Post, Put, Query } from '@nestjs/common';
 import { WordService } from './words.service';
 import { CreateWordDto, UpdateWordDto } from './dtos';
+import { QueryParams } from './schemas/word.schema';
 
 
 @Controller('words')
@@ -10,10 +11,11 @@ export class WordController {
     @Get()
     @HttpCode(HttpStatus.OK)
     async index(
-        @Query('page') page: number = 1,
-        @Query('limit') limit: number = 10,
+        @Query() params: QueryParams,
     ) {
-        return await this.wordService.query({limit: Number(limit), page: Number(page)});
+        params.page = Number(params.page ?? 1);
+        params.limit = Number(params.limit ?? 10);
+        return await this.wordService.query(params);
     }
 
     @Get(':word')

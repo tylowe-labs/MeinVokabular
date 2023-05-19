@@ -70,7 +70,9 @@ export interface PaginatedWord {
     total: number;
 }
 
-export interface PaginationOptions {
-    page: number;
-    limit: number;
+export interface QueryParams {
+    difficulty?: WordDifficulty;
+    category?: WordCategory;
+    page?: number;
+    limit?: number;
 }

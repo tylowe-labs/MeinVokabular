@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginatedWord, Word, PaginationOptions } from './schemas/word.schema';
+import { PaginatedWord, Word, QueryParams } from './schemas/word.schema';
 import { Model } from 'mongoose';
 import { CreateWordDto, UpdateWordDto } from './dtos';
 
@@ -9,12 +9,14 @@ export class WordService {
     constructor(
         @InjectModel(Word.name) private wordModel: Model<Word>){}
 
-    async query(paginationOptions: PaginationOptions): Promise<PaginatedWord> {
-        const page = paginationOptions.page;
-        const limit = paginationOptions.limit;
+    async query(params: QueryParams): Promise<PaginatedWord> {
+        console.log(params)
+        const page = params.page;
+        const limit = params.limit;
         const skip = (page - 1) * limit;
+        const query = this.buildQuery(params);
 
-        const records = await this.wordModel.find().skip(skip).limit(limit).exec();
+        const records = await this.wordModel.find(query).skip(skip).limit(limit).exec();
         const total = await this.wordModel.estimatedDocumentCount();
 
         return {
@@ -23,6 +25,18 @@ export class WordService {
             limit,
             total,
         }
+    }
+
+    private buildQuery(params: QueryParams) {
+        const query: any = {};
+        if (params.difficulty) {
+            query.difficulty = { $eq: params.difficulty }
+        } 
+        if (params.category) {
+            query.categories = { $in: [params.category] }
+        }
+        console.log(query);
+        return query;
     }
 
     async find(word: string): Promise<Word> {
