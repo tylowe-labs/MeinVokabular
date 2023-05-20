@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <img src="https://github.com/tylowe-labs/MeinVokabular/assets/59340807/a732803a-318b-4e3f-9e01-90fc6beb5eaa">
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
@@ -59,6 +59,8 @@ $ npm run test:cov
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+Awesome dog from <a href="https://www.flaticon.com/free-icons/german-shepherd" title="german shepherd icons">Flaticon</a>
 
 ## License
 
