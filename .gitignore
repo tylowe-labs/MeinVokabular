@@ -29,7 +29,11 @@ lerna-debug.log*
 
 # IDE - VSCode
 .vscode/*
+@Public()
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Secrets
+.env

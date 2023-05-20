@@ -2,12 +2,14 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException,
 import { WordService } from './words.service';
 import { CreateWordDto, UpdateWordDto } from './dtos';
 import { QueryParams } from './schemas/word.schema';
+import { Public } from 'src/auth/public.decorator';
 
 
 @Controller('words')
 export class WordController {
     constructor(private readonly wordService: WordService) {}
 
+    @Public()
     @Get()
     @HttpCode(HttpStatus.OK)
     async index(
@@ -18,6 +20,7 @@ export class WordController {
         return await this.wordService.query(params);
     }
 
+    @Public()
     @Get(':word')
     @HttpCode(HttpStatus.OK)
     async find(@Param('word') word: string) {
