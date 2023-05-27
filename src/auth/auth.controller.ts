@@ -5,14 +5,12 @@ import { Public } from './public.decorator';
 
 @Controller('auth')
 export class AuthController {
-    constructor(
-        private authService: AuthService
-    ) {}
+  constructor(private authService: AuthService) {}
 
-    @Public()
-    @UseGuards(LocalAuthGuard)
-    @Post('/login')
-    async login(@Request() req) {
-        return this.authService.login(req.user);
-    }
+  @Public()
+  @UseGuards(LocalAuthGuard)
+  @Post('/login')
+  async login(@Request() req) {
+    return this.authService.login(req.user);
+  }
 }

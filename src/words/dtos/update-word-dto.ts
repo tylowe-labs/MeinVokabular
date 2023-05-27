@@ -1,3 +1,3 @@
-import { BaseWordDto } from "./base-word.dto"
+import { BaseWordDto } from './base-word.dto';
 
 export class UpdateWordDto extends BaseWordDto {}

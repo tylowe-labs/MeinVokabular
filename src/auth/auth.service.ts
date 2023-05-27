@@ -5,35 +5,35 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private usersService: UsersService,
-        private jwtService: JwtService,     
-    ) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
 
-    async validateUser(username: string, pass: string): Promise<any> {
-        const user = await this.usersService.find(username);
-        if (user && user.password === pass) {
-            const { password, ...result } = user;
-            return result;
-        }
-        return null;
+  async validateUser(username: string, pass: string): Promise<any> {
+    const user = await this.usersService.find(username);
+    if (user && user.password === pass) {
+      const { password, ...result } = user;
+      return result;
     }
+    return null;
+  }
 
-    async login(user: any) {
-        const payload = { username: user.username, sub: user.userId };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
-    }
+  async login(user: any) {
+    const payload = { username: user.username, sub: user.userId };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
 
-    async hashPassword(pass: string): Promise<string> {
-        const saltRounds = 10;
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPass = await bcrypt.hash(pass, salt);
-        return hashedPass;
-    }
+  async hashPassword(pass: string): Promise<string> {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPass = await bcrypt.hash(pass, salt);
+    return hashedPass;
+  }
 
-    async validatePassword(pass: string, hashedPass: string) {
-        return await bcrypt.compare(pass, hashedPass);
-    }
+  async validatePassword(pass: string, hashedPass: string) {
+    return await bcrypt.compare(pass, hashedPass);
+  }
 }
